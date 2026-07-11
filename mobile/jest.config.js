@@ -2,7 +2,7 @@ module.exports = {
   preset: '@react-native/jest-preset',
   setupFiles: ['./jest.setup.js'],
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-native-async-storage/async-storage|@react-navigation|@reduxjs/toolkit|immer|redux|react-redux|redux-persist)/)',
+    'node_modules/(?!((jest-)?react-native|react-native-safe-area-context|react-native-screens|@react-native(-community)?|@react-native-async-storage/async-storage|@react-navigation|@reduxjs/toolkit|immer|redux|react-redux|redux-persist)/)',
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
