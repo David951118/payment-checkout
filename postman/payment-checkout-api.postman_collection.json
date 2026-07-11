@@ -1,0 +1,205 @@
+{
+  "info": {
+    "_postman_id": "5f1e2b3c-8a9d-4c7e-b6a1-payment-check",
+    "name": "Payment Checkout API",
+    "description": "Backend REST API for the card payment checkout challenge. No auth required — gateway secrets live server-side only.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "productId", "value": "" },
+    { "key": "transactionId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const products = pm.response.json();",
+                  "if (Array.isArray(products) && products.length > 0) {",
+                  "  pm.collectionVariables.set('productId', products[0].id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            },
+            "description": "Returns the seeded product catalog with live stock. Captures the first product id into {{productId}}."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/products",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["products"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "[\n  {\n    \"id\": \"0b6c1f9e-1234-4a5b-9c8d-111111111111\",\n    \"name\": \"Wireless Headphones\",\n    \"description\": \"Over-ear Bluetooth headphones with active noise cancelling.\",\n    \"priceInCents\": 38990000,\n    \"stock\": 12,\n    \"imageUrl\": \"https://picsum.photos/seed/headphones/600/400\"\n  }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Checkout",
+      "item": [
+        {
+          "name": "Create checkout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const tx = pm.response.json();",
+                  "if (tx.id) {",
+                  "  pm.collectionVariables.set('transactionId', tx.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"{{productId}}\",\n  \"quantity\": 1,\n  \"customerEmail\": \"buyer@example.com\",\n  \"cardToken\": \"tok_stagtest_xxx\",\n  \"installments\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/checkout",
+              "host": ["{{baseUrl}}"],
+              "path": ["checkout"]
+            },
+            "description": "Creates the internal transaction, charges the tokenized card at the gateway (long-polls until a final status) and returns the result. cardToken comes from the gateway tokenization endpoint — never a raw card number. Captures the transaction id into {{transactionId}}."
+          },
+          "response": [
+            {
+              "name": "201 APPROVED",
+              "originalRequest": {
+                "method": "POST",
+                "url": {
+                  "raw": "{{baseUrl}}/checkout",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["checkout"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"id\": \"7a1e5c2d-5678-4f3a-8b9c-222222222222\",\n  \"reference\": \"PC-1720650000000-9f8a7b6c\",\n  \"amountInCents\": 38990000,\n  \"currency\": \"COP\",\n  \"status\": \"APPROVED\",\n  \"productId\": \"0b6c1f9e-1234-4a5b-9c8d-111111111111\",\n  \"quantity\": 1,\n  \"customerEmail\": \"buyer@example.com\",\n  \"createdAt\": \"2026-07-10T18:30:00.000Z\",\n  \"updatedAt\": \"2026-07-10T18:30:05.000Z\"\n}"
+            },
+            {
+              "name": "404 Product not found",
+              "originalRequest": {
+                "method": "POST",
+                "url": {
+                  "raw": "{{baseUrl}}/checkout",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["checkout"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"statusCode\": 404,\n  \"error\": \"ProductNotFoundError\",\n  \"message\": \"Product \\\"missing\\\" was not found\"\n}"
+            },
+            {
+              "name": "409 Insufficient stock",
+              "originalRequest": {
+                "method": "POST",
+                "url": {
+                  "raw": "{{baseUrl}}/checkout",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["checkout"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"statusCode\": 409,\n  \"error\": \"InsufficientStockError\",\n  \"message\": \"Insufficient stock for product \\\"p-1\\\": requested 5, available 1\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Get transaction status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/transactions/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["transactions", ":id"],
+              "variable": [{ "key": "id", "value": "{{transactionId}}" }]
+            },
+            "description": "Returns the stored transaction. If it is still PENDING and was created at the gateway, the backend refreshes the status with a single gateway query."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/transactions/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["transactions", ":id"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"id\": \"7a1e5c2d-5678-4f3a-8b9c-222222222222\",\n  \"reference\": \"PC-1720650000000-9f8a7b6c\",\n  \"amountInCents\": 38990000,\n  \"currency\": \"COP\",\n  \"status\": \"APPROVED\",\n  \"productId\": \"0b6c1f9e-1234-4a5b-9c8d-111111111111\",\n  \"quantity\": 1,\n  \"customerEmail\": \"buyer@example.com\",\n  \"createdAt\": \"2026-07-10T18:30:00.000Z\",\n  \"updatedAt\": \"2026-07-10T18:30:05.000Z\"\n}"
+            },
+            {
+              "name": "404 Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{baseUrl}}/transactions/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["transactions", ":id"]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n  \"statusCode\": 404,\n  \"error\": \"TransactionNotFoundError\",\n  \"message\": \"Transaction \\\"missing\\\" was not found\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
