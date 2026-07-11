@@ -5,7 +5,6 @@ import {
   PAUSE,
   PERSIST,
   persistReducer,
-  persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
@@ -51,9 +50,6 @@ export function createStore(preloadedState?: Partial<RootState>) {
       }),
   });
 }
-
-export const store = createStore();
-export const persistor = persistStore(store);
 
 export type AppStore = ReturnType<typeof createStore>;
 export type AppDispatch = AppStore['dispatch'];

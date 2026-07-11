@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastProvider } from './src/components/Toast';
 import { RootNavigator } from './src/navigation/RootNavigator';
-import { persistor, store } from './src/store';
+import { persistor, store } from './src/store/app-store';
 
 function App() {
   return (

@@ -2,6 +2,7 @@ import React, {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -57,6 +58,15 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       }, AUTO_HIDE_MS);
     },
     [opacity],
+  );
+
+  useEffect(
+    () => () => {
+      if (hideTimer.current) {
+        clearTimeout(hideTimer.current);
+      }
+    },
+    [],
   );
 
   const value = useMemo(() => ({ showToast }), [showToast]);
