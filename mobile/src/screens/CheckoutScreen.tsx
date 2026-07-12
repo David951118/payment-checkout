@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Backdrop } from '../components/Backdrop';
 import { CardForm } from '../components/CardForm';
 import { PaymentSummary } from '../components/PaymentSummary';
@@ -20,6 +21,7 @@ type BackdropStep = 'none' | 'card' | 'summary';
  */
 export function CheckoutScreen({ navigation }: ScreenProps<'Checkout'>) {
   const dispatch = useAppDispatch();
+  const insets = useSafeAreaInsets();
   const { showToast } = useToast();
   const checkout = useAppSelector(state => state.checkout);
   const submitting = useAppSelector(state => state.transaction.submitting);
@@ -83,7 +85,7 @@ export function CheckoutScreen({ navigation }: ScreenProps<'Checkout'>) {
         </View>
       </View>
 
-      <View style={styles.footer}>
+      <View style={[styles.footer, { paddingBottom: insets.bottom }]}>
         <PrimaryButton
           testID="open-card-form"
           label="Pagar con tarjeta"

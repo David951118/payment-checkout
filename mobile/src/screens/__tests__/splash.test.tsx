@@ -17,7 +17,7 @@ describe('SplashScreen', () => {
       <SplashScreen navigation={navigation} route={{} as never} />,
     );
     expect(screen.getByTestId('splash-screen')).toBeTruthy();
-    expect(screen.getByText('Checkout Store')).toBeTruthy();
+    expect(screen.getByText('tiendaprueba.com')).toBeTruthy();
 
     act(() => jest.advanceTimersByTime(1500));
     expect((navigation as never as { reset: jest.Mock }).reset).toHaveBeenCalledWith({

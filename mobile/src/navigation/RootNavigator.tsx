@@ -17,7 +17,8 @@ export function RootNavigator() {
       screenOptions={{
         headerShadowVisible: false,
         headerStyle: { backgroundColor: colors.background },
-        headerTintColor: colors.text,
+        headerTintColor: colors.primary,
+        headerTitleStyle: { fontWeight: '800', color: colors.primary },
         contentStyle: { backgroundColor: colors.background },
       }}>
       <Stack.Screen
@@ -28,7 +29,7 @@ export function RootNavigator() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: 'Tienda', headerBackVisible: false }}
+        options={{ title: 'tiendaprueba.com', headerBackVisible: false }}
       />
       <Stack.Screen
         name="ProductDetail"

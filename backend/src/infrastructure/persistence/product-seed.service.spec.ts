@@ -12,14 +12,14 @@ function makeSut(count: number) {
 }
 
 describe('ProductSeedService', () => {
-  it('seeds 4-6 products with stock when the table is empty', async () => {
+  it('seeds a catalog of products with stock when the table is empty', async () => {
     const { sut, ormRepo } = makeSut(0);
 
     await sut.onApplicationBootstrap();
 
     expect(ormRepo.save).toHaveBeenCalledTimes(1);
-    expect(SEED_PRODUCTS.length).toBeGreaterThanOrEqual(4);
-    expect(SEED_PRODUCTS.length).toBeLessThanOrEqual(6);
+    // Catalog large enough to exercise list scrolling in the mobile app.
+    expect(SEED_PRODUCTS.length).toBeGreaterThanOrEqual(10);
     for (const seed of SEED_PRODUCTS) {
       expect(seed.stock).toBeGreaterThan(0);
       expect(seed.priceInCents).toBeGreaterThan(0);

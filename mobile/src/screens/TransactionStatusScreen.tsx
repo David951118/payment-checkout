@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { PrimaryButton } from '../components/PrimaryButton';
 import type { TransactionStatus } from '../domain/types';
 import type { ScreenProps } from '../navigation/types';
@@ -83,7 +84,7 @@ export function TransactionStatusScreen({
   };
 
   return (
-    <View style={styles.container} testID="transaction-status">
+    <SafeAreaView style={styles.container} testID="transaction-status">
       <View style={[styles.iconCircle, { backgroundColor: ui.color }]}>
         <Text style={styles.icon}>{ui.icon}</Text>
       </View>
@@ -109,7 +110,7 @@ export function TransactionStatusScreen({
         onPress={goHome}
         style={styles.homeButton}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 

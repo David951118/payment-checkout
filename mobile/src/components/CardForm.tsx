@@ -197,6 +197,10 @@ export function CardForm({ onTokenized, onError }: CardFormProps) {
         placeholder="Como aparece en la tarjeta"
         placeholderTextColor={colors.muted}
         autoCapitalize="characters"
+        autoCorrect={false}
+        spellCheck={false}
+        autoComplete="off"
+        importantForAutofill="no"
       />
       {showError('holder', holderValid) ? (
         <Text style={styles.error} testID="error-holder">
@@ -218,6 +222,9 @@ export function CardForm({ onTokenized, onError }: CardFormProps) {
         placeholderTextColor={colors.muted}
         keyboardType="email-address"
         autoCapitalize="none"
+        autoCorrect={false}
+        spellCheck={false}
+        autoComplete="email"
       />
       {showError('email', emailValid) ? (
         <Text style={styles.error} testID="error-email">
@@ -320,8 +327,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   chipSelected: {
-    borderColor: colors.primary,
-    backgroundColor: '#EEF2FF',
+    borderColor: colors.accent,
+    backgroundColor: colors.accentSoft,
   },
   chipText: {
     fontSize: 14,
@@ -329,7 +336,7 @@ const styles = StyleSheet.create({
     color: colors.muted,
   },
   chipTextSelected: {
-    color: colors.primary,
+    color: colors.success,
   },
   submit: {
     marginTop: spacing.lg,

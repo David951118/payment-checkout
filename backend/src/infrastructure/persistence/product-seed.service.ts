@@ -39,6 +39,55 @@ export const SEED_PRODUCTS: Omit<ProductOrmEntity, 'id'>[] = [
     stock: 30,
     imageUrl: 'https://picsum.photos/seed/usbhub/600/400',
   },
+  {
+    name: 'Gaming Mouse',
+    description: 'Wireless gaming mouse, 26K DPI sensor and 90h battery.',
+    priceInCents: 21990000,
+    stock: 15,
+    imageUrl: 'https://picsum.photos/seed/mouse/600/400',
+  },
+  {
+    name: '4K Webcam',
+    description: '4K webcam with autofocus, HDR and dual noise-cancelling mics.',
+    priceInCents: 34550000,
+    stock: 9,
+    imageUrl: 'https://picsum.photos/seed/webcam/600/400',
+  },
+  {
+    name: 'Laptop Stand',
+    description: 'Adjustable aluminium laptop stand, fits 10" to 17".',
+    priceInCents: 8470000,
+    stock: 25,
+    imageUrl: 'https://picsum.photos/seed/stand/600/400',
+  },
+  {
+    name: 'Noise-Cancelling Earbuds',
+    description: 'In-ear ANC earbuds with wireless charging case.',
+    priceInCents: 26930000,
+    stock: 18,
+    imageUrl: 'https://picsum.photos/seed/earbuds/600/400',
+  },
+  {
+    name: 'Smart Bulb Kit',
+    description: 'Kit of 3 RGB smart bulbs, app and voice controlled.',
+    priceInCents: 11890000,
+    stock: 40,
+    imageUrl: 'https://picsum.photos/seed/bulbs/600/400',
+  },
+  {
+    name: 'External SSD 1TB',
+    description: 'Portable NVMe SSD, 1050 MB/s over USB-C, shock resistant.',
+    priceInCents: 45990000,
+    stock: 11,
+    imageUrl: 'https://picsum.photos/seed/ssd/600/400',
+  },
+  {
+    name: 'Phone Tripod',
+    description: 'Extendable tripod with Bluetooth remote shutter.',
+    priceInCents: 6250000,
+    stock: 35,
+    imageUrl: 'https://picsum.photos/seed/tripod/600/400',
+  },
 ];
 
 @Injectable()

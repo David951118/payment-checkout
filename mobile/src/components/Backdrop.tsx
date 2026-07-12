@@ -11,6 +11,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, radius, spacing, typography } from '../theme';
 
 interface BackdropProps {
@@ -34,6 +35,7 @@ export function Backdrop({
   dismissable = true,
 }: BackdropProps) {
   const { height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const translateY = useRef(new Animated.Value(height)).current;
 
   useEffect(() => {
@@ -69,7 +71,11 @@ export function Backdrop({
             testID="backdrop-sheet"
             style={[
               styles.sheet,
-              { maxHeight: height * 0.88, transform: [{ translateY }] },
+              {
+                maxHeight: height * 0.88,
+                paddingBottom: spacing.lg + insets.bottom,
+                transform: [{ translateY }],
+              },
             ]}>
             <View style={styles.handle} />
             <View style={styles.header}>

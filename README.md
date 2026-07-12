@@ -27,7 +27,7 @@ curl http://localhost:3000/products    # seeded products
 ```
 
 The compose file starts PostgreSQL 16 and the API on port 3000. On boot the
-backend runs a seed of 5 products (skipped if products already exist).
+backend runs a seed of 12 products (skipped if products already exist).
 
 To run it without Docker: `cd backend && npm ci && npm run start:dev`
 (needs a local PostgreSQL matching `backend/.env`).

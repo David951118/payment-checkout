@@ -1,15 +1,21 @@
+/**
+ * Gateway-checkout inspired palette: deep navy surfaces and CTAs with a
+ * vivid mint-green accent, white cards on a cool light background.
+ */
 export const colors = {
-  background: '#F6F7FB',
+  background: '#F2F4FA',
   surface: '#FFFFFF',
-  primary: '#4F46E5',
-  primaryDark: '#4338CA',
-  text: '#111827',
-  muted: '#6B7280',
-  border: '#E5E7EB',
-  success: '#16A34A',
+  primary: '#161D4E',
+  primaryDark: '#0E1338',
+  accent: '#00D48A',
+  accentSoft: '#E1FAF0',
+  text: '#12173B',
+  muted: '#68708F',
+  border: '#E2E6F1',
+  success: '#00A870',
   danger: '#DC2626',
   warning: '#D97706',
-  scrim: 'rgba(17, 24, 39, 0.55)',
+  scrim: 'rgba(18, 23, 59, 0.6)',
 };
 
 export const spacing = {

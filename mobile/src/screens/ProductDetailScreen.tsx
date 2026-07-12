@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { PrimaryButton } from '../components/PrimaryButton';
 import { QuantityStepper } from '../components/QuantityStepper';
 import type { ScreenProps } from '../navigation/types';
@@ -14,6 +15,7 @@ export function ProductDetailScreen({
   route,
 }: ScreenProps<'ProductDetail'>) {
   const dispatch = useAppDispatch();
+  const insets = useSafeAreaInsets();
   const product = useAppSelector(state =>
     state.products.items.find(item => item.id === route.params.productId),
   );
@@ -65,8 +67,8 @@ export function ProductDetailScreen({
         </View>
       </ScrollView>
 
-      {/* Anchored bottom bar — stays inside bounds on small screens */}
-      <View style={styles.footer}>
+      {/* Anchored bottom bar — safe-area aware (home indicator / gesture bar) */}
+      <View style={[styles.footer, { paddingBottom: spacing.md + insets.bottom }]}>
         <View>
           <Text style={typography.caption}>Total</Text>
           <Text style={styles.total} testID="detail-total">
