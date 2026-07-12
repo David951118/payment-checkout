@@ -29,7 +29,7 @@ export function RootNavigator() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: 'tiendaprueba.com', headerBackVisible: false }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ProductDetail"

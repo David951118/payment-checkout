@@ -43,7 +43,9 @@ export function SplashScreen({ navigation }: ScreenProps<'Splash'>) {
         <View style={styles.logo}>
           <Text style={styles.logoText}>◈</Text>
         </View>
-        <Text style={styles.name}>tiendaprueba.com</Text>
+        <Text style={styles.name}>
+          tiendaprueba<Text style={styles.nameAccent}>.com</Text>
+        </Text>
         <Text style={styles.tagline}>Pagos con tarjeta, sin fricción</Text>
       </Animated.View>
     </View>
@@ -77,6 +79,9 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: '800',
     color: '#FFFFFF',
+  },
+  nameAccent: {
+    color: colors.accent,
   },
   tagline: {
     marginTop: spacing.xs,
