@@ -7,3 +7,7 @@
 
 # env files anywhere in the monorepo
 **/.env
+
+# internal working notes — kept out of the public repo
+CLAUDE.md
+/docs/
