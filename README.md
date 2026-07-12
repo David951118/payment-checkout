@@ -10,7 +10,17 @@ backend with hexagonal architecture, integrated with a Colombian payment gateway
 /mobile     React Native 0.86 (CLI, TypeScript) — no Expo
 /backend    NestJS 11 (TypeScript) — hexagonal architecture (ports & adapters)
 /postman    Postman collection for the backend API
+/docs       Manuals (Spanish): user guide, technical guide, production runbook
 ```
+
+## Documentation
+
+- [Manual de uso](docs/manual-de-uso.md) — how to use the app, test cards,
+  transaction states.
+- [Manual técnico](docs/manual-tecnico.md) — architecture, payment flow,
+  security model, testing.
+- [Paso a producción](docs/paso-a-produccion.md) — deploying the backend
+  (Render blueprint included as `render.yaml`) and pointing the app at it.
 
 ## Requirements
 

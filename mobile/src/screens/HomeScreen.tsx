@@ -59,7 +59,9 @@ export function HomeScreen({ navigation }: ScreenProps<'Home'>) {
         <PrimaryButton
           label="Reintentar"
           style={styles.retry}
-          onPress={() => void dispatch(fetchProducts())}
+          onPress={() => {
+            void dispatch(fetchProducts());
+          }}
         />
       </View>
     );
@@ -75,7 +77,9 @@ export function HomeScreen({ navigation }: ScreenProps<'Home'>) {
         refreshControl={
           <RefreshControl
             refreshing={loading}
-            onRefresh={() => void dispatch(fetchProducts())}
+            onRefresh={() => {
+              void dispatch(fetchProducts());
+            }}
             tintColor={colors.primary}
           />
         }
@@ -88,8 +92,6 @@ export function HomeScreen({ navigation }: ScreenProps<'Home'>) {
 
   return (
     <View style={styles.screen}>
-      {/* Hero header: navy band with the brand logotype, curved bottom and
-          soft decorative shapes. Replaces the plain navigation header. */}
       <View style={[styles.hero, { paddingTop: insets.top + spacing.md }]}>
         <View style={styles.heroGlow} />
         <View style={styles.heroGlowSmall} />

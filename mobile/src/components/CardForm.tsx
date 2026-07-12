@@ -259,7 +259,9 @@ export function CardForm({ onTokenized, onError }: CardFormProps) {
       <PrimaryButton
         testID="card-submit"
         label="Continuar al resumen"
-        onPress={() => void submit()}
+        onPress={() => {
+          void submit();
+        }}
         disabled={!formValid}
         loading={submitting}
         style={styles.submit}

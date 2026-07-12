@@ -108,7 +108,12 @@ export function CheckoutScreen({ navigation }: ScreenProps<'Checkout'>) {
         title="Resumen de pago"
         onClose={() => setStep('card')}
         dismissable={!submitting}>
-        <PaymentSummary paying={submitting} onPay={() => void pay()} />
+        <PaymentSummary
+          paying={submitting}
+          onPay={() => {
+            void pay();
+          }}
+        />
       </Backdrop>
     </View>
   );

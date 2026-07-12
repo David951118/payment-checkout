@@ -32,17 +32,35 @@ import { TypeOrmTransactionRepository } from './infrastructure/persistence/typeo
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres' as const,
-        host: config.get<string>('DB_HOST', 'localhost'),
-        port: config.get<number>('DB_PORT', 5432),
-        username: config.get<string>('DB_USERNAME', 'postgres'),
-        password: config.get<string>('DB_PASSWORD', 'postgres'),
-        database: config.get<string>('DB_NAME', 'payment_checkout'),
-        entities: [ProductOrmEntity, TransactionOrmEntity],
-        // Challenge trade-off: schema sync instead of migrations.
-        synchronize: true,
-      }),
+      useFactory: (config: ConfigService) => {
+        const common = {
+          type: 'postgres' as const,
+          entities: [ProductOrmEntity, TransactionOrmEntity],
+          // Challenge trade-off: schema sync instead of migrations.
+          synchronize: true,
+        };
+        // Managed providers (Render, Neon, Supabase) hand out a single
+        // connection URL; most require TLS on external connections.
+        const url = config.get<string>('DATABASE_URL');
+        if (url) {
+          return {
+            ...common,
+            url,
+            ssl:
+              config.get<string>('DB_SSL', 'true') === 'true'
+                ? { rejectUnauthorized: false }
+                : undefined,
+          };
+        }
+        return {
+          ...common,
+          host: config.get<string>('DB_HOST', 'localhost'),
+          port: config.get<number>('DB_PORT', 5432),
+          username: config.get<string>('DB_USERNAME', 'postgres'),
+          password: config.get<string>('DB_PASSWORD', 'postgres'),
+          database: config.get<string>('DB_NAME', 'payment_checkout'),
+        };
+      },
     }),
     TypeOrmModule.forFeature([ProductOrmEntity, TransactionOrmEntity]),
   ],

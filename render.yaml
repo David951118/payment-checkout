@@ -1,0 +1,37 @@
+# Render blueprint: API (Docker) + managed PostgreSQL.
+# Deploy: Render dashboard -> New -> Blueprint -> point at this repository.
+services:
+  - type: web
+    name: payment-checkout-api
+    runtime: docker
+    rootDir: backend
+    plan: free
+    healthCheckPath: /products
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: payment-checkout-db
+          property: connectionString
+      # Render's internal connection does not use TLS.
+      - key: DB_SSL
+        value: "false"
+      # Gateway credentials are secrets: set them in the Render dashboard.
+      - key: GATEWAY_BASE_URL
+        sync: false
+      - key: GATEWAY_PUBLIC_KEY
+        sync: false
+      - key: GATEWAY_PRIVATE_KEY
+        sync: false
+      - key: GATEWAY_INTEGRITY_SECRET
+        sync: false
+      - key: GATEWAY_EVENTS_SECRET
+        sync: false
+      - key: GATEWAY_POLL_INTERVAL_MS
+        value: "1500"
+      - key: GATEWAY_POLL_TIMEOUT_MS
+        value: "60000"
+
+databases:
+  - name: payment-checkout-db
+    plan: free
+    databaseName: payment_checkout

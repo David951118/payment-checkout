@@ -48,7 +48,8 @@ export const SEED_PRODUCTS: Omit<ProductOrmEntity, 'id'>[] = [
   },
   {
     name: '4K Webcam',
-    description: '4K webcam with autofocus, HDR and dual noise-cancelling mics.',
+    description:
+      '4K webcam with autofocus, HDR and dual noise-cancelling mics.',
     priceInCents: 34550000,
     stock: 9,
     imageUrl: 'https://picsum.photos/seed/webcam/600/400',
