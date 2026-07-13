@@ -19,10 +19,14 @@ export interface CheckoutRequest {
   installments: number;
 }
 
+// Tolerate a trailing slash in the configured URL: `base//products`
+// would 404 on the server's router.
+const BASE_URL = ENV.BACKEND_URL.replace(/\/+$/, '');
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   let response: Response;
   try {
-    response = await fetch(`${ENV.BACKEND_URL}${path}`, {
+    response = await fetch(`${BASE_URL}${path}`, {
       ...init,
       headers: { 'Content-Type': 'application/json', ...init?.headers },
     });

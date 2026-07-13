@@ -28,7 +28,7 @@ interface TokenResponse {
 export async function tokenizeCard(card: CardInput): Promise<string> {
   let response: Response;
   try {
-    response = await fetch(`${ENV.GATEWAY_BASE_URL}/tokens/cards`, {
+    response = await fetch(`${ENV.GATEWAY_BASE_URL.replace(/\/+$/, '')}/tokens/cards`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
