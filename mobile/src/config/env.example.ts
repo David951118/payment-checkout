@@ -6,8 +6,11 @@
 export const ENV = {
   /** Backend base URL. Android emulator reaches the host via 10.0.2.2. */
   BACKEND_URL: 'http://10.0.2.2:3000',
-  /** Payment gateway sandbox base URL (public, used only for card tokenization). */
-  GATEWAY_BASE_URL: 'https://sandbox-api.example.dev/v1',
+  /**
+   * Payment gateway sandbox base URL (public, used only for card
+   * tokenization). The real value is provided in the challenge document.
+   */
+  GATEWAY_BASE_URL: 'https://<sandbox-base-url-from-the-brief>/v1',
   /** Gateway PUBLIC key (safe on-device by design). */
   GATEWAY_PUBLIC_KEY: 'pub_stagtest_xxxxxxxxxxxxxxxxxxxxxxxx',
   /**

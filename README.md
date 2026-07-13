@@ -18,6 +18,13 @@ backend with hexagonal architecture, integrated with a Colombian payment gateway
 - Docker + Docker Compose (backend + PostgreSQL)
 - JDK 17 + Android SDK (mobile builds)
 
+## Live demo
+
+- API in production: https://payment-checkout-api-fh8g.onrender.com/products
+  (free tier: the first request after idle takes ~30-60 s to wake the service).
+- The committed APK (`mobile/apk/app-release.apk`) points at that API — install
+  it on any Android device and pay with the sandbox test cards below.
+
 ## Backend — run with Docker Compose
 
 ```bash

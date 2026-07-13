@@ -1,6 +1,11 @@
 module.exports = {
   preset: '@react-native/jest-preset',
   setupFiles: ['./jest.setup.js'],
+  moduleNameMapper: {
+    // Tests run on the example config so a fresh clone (no local env.ts)
+    // passes without any setup step.
+    '^(.*)/config/env$': '<rootDir>/src/config/env.example.ts',
+  },
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native|react-native-safe-area-context|react-native-screens|@react-native(-community)?|@react-native-async-storage/async-storage|@react-navigation|@reduxjs/toolkit|immer|redux|react-redux|redux-persist)/)',
   ],
